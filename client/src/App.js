@@ -1,19 +1,34 @@
+import { useState } from 'react';
 import Header from './components/Header';
+import Welcome from './components/Welcome';
 import About from './components/About';
+import Skills from './components/Skills';
 import Projects from './components/Projects';
 import ContactForm from './components/ContactForm';
-import Footer from './components/Footer';
+import Footer from './components/Footer'; // ✅ Import the Footer
+import './App.css';
 
-function App() {
+export default function App() {
+  const [showWelcome, setShowWelcome] = useState(true);
+
+  const handleExplore = () => {
+    setShowWelcome(false);
+  };
+
   return (
     <div>
-      <Header />
-      <About />
-      <Projects />
-      <ContactForm />
-      <Footer />
+      {showWelcome ? (
+        <Welcome onExplore={handleExplore} />
+      ) : (
+        <div className="fade-in">
+          <Header />
+          <About />
+          <Skills />
+          <Projects />
+          <ContactForm />
+          <Footer /> {/* ✅ Add footer at the bottom */}
+        </div>
+      )}
     </div>
   );
 }
-
-export default App;
