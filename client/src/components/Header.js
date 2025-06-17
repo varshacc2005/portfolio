@@ -2,27 +2,37 @@ export default function Header() {
   return (
     <header style={{
       backgroundColor: '#ffffff',
-      padding: '1rem 2rem',
+      padding: '1.5rem 2rem',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      borderBottom: '1px solid #e0e0e0',
+      borderBottom: '1px solid #e5e7eb',
       position: 'sticky',
       top: 0,
       zIndex: 1000,
-      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.05)'
+      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.04)',
+      backdropFilter: 'blur(10px)',
+      fontFamily: "'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif"
     }}>
       <h1 style={{
-        fontSize: '1.8rem',
-        fontWeight: 700,
-        color: '#222',
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+        fontSize: '2rem',
+        fontWeight: '700',
+        color: '#1a1a1a',
         margin: 0,
+        letterSpacing: '-0.02em'
       }}>
-        Varsha<span style={{ color: '#007bff' }}>C</span>
+        Varsha<span style={{ 
+          background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent'
+        }}>C</span>
       </h1>
 
-      <nav style={{ display: 'flex', gap: '2rem' }}>
+      <nav style={{ 
+        display: 'flex', 
+        gap: '2.5rem',
+        alignItems: 'center'
+      }}>
         <NavLink href="#about" label="About" />
         <NavLink href="#skills" label="Skills" />
         <NavLink href="#projects" label="Projects" />
@@ -38,14 +48,22 @@ function NavLink({ href, label }) {
       href={href}
       style={{
         textDecoration: 'none',
-        color: '#444',
-        fontWeight: 500,
-        fontSize: '1rem',
+        color: '#4b5563',
+        fontWeight: '500',
+        fontSize: '1.1rem',
         position: 'relative',
-        transition: 'all 0.3s ease-in-out',
+        transition: 'all 0.3s ease',
+        padding: '0.5rem 1rem',
+        borderRadius: '8px'
       }}
-      onMouseEnter={(e) => e.currentTarget.style.color = '#007bff'}
-      onMouseLeave={(e) => e.currentTarget.style.color = '#444'}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.color = '#3b82f6';
+        e.currentTarget.style.backgroundColor = '#f8fafc';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.color = '#4b5563';
+        e.currentTarget.style.backgroundColor = 'transparent';
+      }}
     >
       {label}
     </a>
