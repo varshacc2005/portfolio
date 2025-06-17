@@ -22,7 +22,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Routes
-const contactRoute = require('./models/contact');
+const contactRoute = require('./models/Contact');
 app.use('/api/contact', contactRoute);
 
 // Default route
