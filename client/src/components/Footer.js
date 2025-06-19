@@ -1,9 +1,23 @@
+import { useState, useEffect } from 'react';
+
 export default function Footer() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   return (
     <footer style={{
       background: 'linear-gradient(135deg, #1f2937, #111827)',
       color: '#ffffff',
-      padding: '3rem 2rem 2rem',
+      padding: isMobile ? '2rem 1rem 1.5rem' : '3rem 2rem 2rem',
       textAlign: 'center',
       fontSize: '1rem',
       marginTop: '4rem',
@@ -14,10 +28,10 @@ export default function Footer() {
         margin: '0 auto'
       }}>
         <div style={{
-          marginBottom: '2rem'
+          marginBottom: isMobile ? '1.5rem' : '2rem'
         }}>
           <h3 style={{
-            fontSize: '1.5rem',
+            fontSize: isMobile ? '1.3rem' : '1.5rem',
             fontWeight: '600',
             marginBottom: '1rem',
             background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
@@ -28,17 +42,18 @@ export default function Footer() {
           </h3>
           <p style={{
             color: '#9ca3af',
-            marginBottom: '1.5rem'
+            marginBottom: '1.5rem',
+            fontSize: isMobile ? '0.9rem' : '1rem'
           }}>
             Full Stack Developer & Data Analyst
           </p>
         </div>
 
         <div style={{ 
-          marginBottom: '2rem',
+          marginBottom: isMobile ? '1.5rem' : '2rem',
           display: 'flex',
           justifyContent: 'center',
-          gap: '2rem',
+          gap: isMobile ? '1rem' : '2rem',
           flexWrap: 'wrap'
         }}>
           <a
@@ -50,9 +65,10 @@ export default function Footer() {
               textDecoration: 'none',
               fontWeight: '500',
               transition: 'all 0.3s ease',
-              padding: '0.5rem 1rem',
+              padding: isMobile ? '0.4rem 0.8rem' : '0.5rem 1rem',
               borderRadius: '8px',
-              border: '1px solid #374151'
+              border: '1px solid #374151',
+              fontSize: isMobile ? '0.9rem' : '1rem'
             }}
             onMouseEnter={e => {
               e.currentTarget.style.color = '#3b82f6';
@@ -74,9 +90,10 @@ export default function Footer() {
               textDecoration: 'none',
               fontWeight: '500',
               transition: 'all 0.3s ease',
-              padding: '0.5rem 1rem',
+              padding: isMobile ? '0.4rem 0.8rem' : '0.5rem 1rem',
               borderRadius: '8px',
-              border: '1px solid #374151'
+              border: '1px solid #374151',
+              fontSize: isMobile ? '0.9rem' : '1rem'
             }}
             onMouseEnter={e => {
               e.currentTarget.style.color = '#3b82f6';
@@ -93,10 +110,15 @@ export default function Footer() {
 
         <div style={{
           borderTop: '1px solid #374151',
-          paddingTop: '1.5rem',
+          paddingTop: isMobile ? '1rem' : '1.5rem',
           color: '#9ca3af'
         }}>
-          <p>© {new Date().getFullYear()} Varsha Chandran. All rights reserved.</p>
+          <p style={{
+            fontSize: isMobile ? '0.8rem' : '1rem',
+            margin: 0
+          }}>
+            © {new Date().getFullYear()} Varsha Chandran. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

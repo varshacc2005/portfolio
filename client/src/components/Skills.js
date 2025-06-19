@@ -1,29 +1,40 @@
-import { FaPython, FaJava, FaReact, FaNodeJs } from 'react-icons/fa';
-import { SiMongodb, SiMysql, SiC } from 'react-icons/si';
+import { useState, useEffect } from 'react';
 
 export default function Skills() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   const skills = [
-    { name: 'Python', icon: <FaPython color="#306998" />, level: 90 },
-    { name: 'C', icon: <SiC color="#A8B9CC" />, level: 85 },
-    { name: 'Java', icon: <FaJava color="#007396" />, level: 80 },
-    { name: 'React', icon: <FaReact color="#61DBFB" />, level: 85 },
-    { name: 'Node.js', icon: <FaNodeJs color="#68A063" />, level: 80 },
-    { name: 'MongoDB', icon: <SiMongodb color="#4DB33D" />, level: 75 },
-    { name: 'MySQL', icon: <SiMysql color="#00758F" />, level: 85 }
+    { name: 'Python', icon: '🐍', level: 90, color: '#306998' },
+    { name: 'C', icon: '⚡', level: 85, color: '#A8B9CC' },
+    { name: 'Java', icon: '☕', level: 80, color: '#007396' },
+    { name: 'React', icon: '⚛️', level: 85, color: '#61DBFB' },
+    { name: 'Node.js', icon: '🟢', level: 80, color: '#68A063' },
+    { name: 'MongoDB', icon: '🍃', level: 75, color: '#4DB33D' },
+    { name: 'MySQL', icon: '🗄️', level: 85, color: '#00758F' }
   ];
 
   return (
     <section id="skills" style={{
       maxWidth: '1000px',
       margin: '0 auto',
-      padding: '4rem 2rem',
+      padding: isMobile ? '2rem 1rem' : '4rem 2rem',
       textAlign: 'center',
       fontFamily: "'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif"
     }}>
       <h2 style={{
-        fontSize: '2.5rem',
+        fontSize: isMobile ? '2rem' : '2.5rem',
         fontWeight: '700',
-        marginBottom: '3rem',
+        marginBottom: isMobile ? '2rem' : '3rem',
         color: '#1a1a1a',
         letterSpacing: '-0.02em'
       }}>
@@ -32,13 +43,15 @@ export default function Skills() {
       
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-        gap: '2rem',
+        gridTemplateColumns: isMobile 
+          ? 'repeat(auto-fit, minmax(140px, 1fr))' 
+          : 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: isMobile ? '1rem' : '2rem',
         marginTop: '2rem'
       }}>
         {skills.map((skill, idx) => (
           <div key={idx} style={{
-            padding: '2rem 1.5rem',
+            padding: isMobile ? '1.5rem 1rem' : '2rem 1.5rem',
             backgroundColor: '#ffffff',
             borderRadius: '16px',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.08)',
@@ -48,15 +61,19 @@ export default function Skills() {
             overflow: 'hidden'
           }}
           onMouseEnter={e => {
-            e.currentTarget.style.transform = 'translateY(-4px)';
-            e.currentTarget.style.boxShadow = '0 16px 48px rgba(0, 0, 0, 0.12)';
+            if (!isMobile) {
+              e.currentTarget.style.transform = 'translateY(-4px)';
+              e.currentTarget.style.boxShadow = '0 16px 48px rgba(0, 0, 0, 0.12)';
+            }
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.08)';
+            if (!isMobile) {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.08)';
+            }
           }}>
             <div style={{
-              fontSize: '3rem',
+              fontSize: isMobile ? '2rem' : '3rem',
               marginBottom: '1rem',
               display: 'flex',
               justifyContent: 'center'
@@ -66,7 +83,7 @@ export default function Skills() {
             <p style={{ 
               margin: 0,
               fontWeight: '600',
-              fontSize: '1.1rem',
+              fontSize: isMobile ? '1rem' : '1.1rem',
               color: '#1a1a1a',
               marginBottom: '1rem'
             }}>
@@ -87,6 +104,15 @@ export default function Skills() {
                 transition: 'width 1s ease-in-out'
               }} />
             </div>
+            <p style={{
+              margin: 0,
+              marginTop: '0.5rem',
+              fontSize: isMobile ? '0.8rem' : '0.9rem',
+              color: '#6b7280',
+              fontWeight: '500'
+            }}>
+              {skill.level}%
+            </p>
           </div>
         ))}
       </div>

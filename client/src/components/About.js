@@ -1,13 +1,25 @@
-import profile from '../assets/profile.jpg';
+import { useState, useEffect } from 'react';
 
 export default function About() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   return (
     <section
       id="about"
       style={{
         maxWidth: '1000px',
         margin: '0 auto',
-        padding: '4rem 2rem',
+        padding: isMobile ? '2rem 1rem' : '4rem 2rem',
         backgroundColor: '#ffffff',
         lineHeight: '1.7',
         borderRadius: '16px',
@@ -16,9 +28,9 @@ export default function About() {
       }}
     >
       <h2 style={{
-        fontSize: '2.5rem',
+        fontSize: isMobile ? '2rem' : '2.5rem',
         fontWeight: '700',
-        marginBottom: '2.5rem',
+        marginBottom: isMobile ? '1.5rem' : '2.5rem',
         color: '#1a1a1a',
         textAlign: 'center',
         letterSpacing: '-0.02em'
@@ -28,20 +40,23 @@ export default function About() {
 
       <div style={{
         display: 'flex',
-        alignItems: 'flex-start',
-        gap: '3rem',
-        flexWrap: 'wrap'
+        alignItems: isMobile ? 'center' : 'flex-start',
+        gap: isMobile ? '2rem' : '3rem',
+        flexDirection: isMobile ? 'column' : 'row',
+        textAlign: isMobile ? 'center' : 'left'
       }}>
         <div style={{
           position: 'relative',
-          flexShrink: 0
+          flexShrink: 0,
+          alignSelf: isMobile ? 'center' : 'flex-start'
         }}>
+          {/* ✅ Your Real Image Path */}
           <img
-            src={profile}
+            src="/profile.jpg"
             alt="Varsha Chandran"
             style={{
-              width: '200px',
-              height: '200px',
+              width: isMobile ? '150px' : '200px',
+              height: isMobile ? '150px' : '200px',
               borderRadius: '16px',
               objectFit: 'cover',
               objectPosition: 'center',
@@ -64,10 +79,10 @@ export default function About() {
 
         <div style={{ 
           flex: 1,
-          minWidth: '300px'
+          minWidth: isMobile ? 'auto' : '300px'
         }}>
           <p style={{
-            fontSize: '1.125rem',
+            fontSize: isMobile ? '1rem' : '1.125rem',
             marginBottom: '1.5rem',
             color: '#374151',
             fontWeight: '400'
@@ -83,7 +98,7 @@ export default function About() {
           </p>
 
           <p style={{
-            fontSize: '1.125rem',
+            fontSize: isMobile ? '1rem' : '1.125rem',
             marginBottom: '1.5rem',
             color: '#374151'
           }}>
@@ -116,7 +131,7 @@ export default function About() {
           </p>
 
           <p style={{
-            fontSize: '1.125rem',
+            fontSize: isMobile ? '1rem' : '1.125rem',
             marginBottom: '1.5rem',
             color: '#374151'
           }}>
@@ -125,7 +140,7 @@ export default function About() {
           </p>
 
           <p style={{
-            fontSize: '1.125rem',
+            fontSize: isMobile ? '1rem' : '1.125rem',
             marginBottom: '1.5rem',
             color: '#374151'
           }}>
@@ -133,7 +148,7 @@ export default function About() {
           </p>
 
           <p style={{
-            fontSize: '1.125rem',
+            fontSize: isMobile ? '1rem' : '1.125rem',
             color: '#374151'
           }}>
             Let's connect and build something awesome — or even just chat about tech, travel, or tunes! 🚗🎧💻

@@ -1,4 +1,18 @@
+import { useState, useEffect } from 'react';
+
 export default function Projects() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   const projectList = [
     {
       title: 'Finance Tracker',
@@ -20,14 +34,14 @@ export default function Projects() {
     <section id="projects" style={{
       maxWidth: '1100px',
       margin: '0 auto',
-      padding: '4rem 2rem',
+      padding: isMobile ? '2rem 1rem' : '4rem 2rem',
       backgroundColor: '#f8fafc',
       fontFamily: "'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif"
     }}>
       <h2 style={{
-        fontSize: '2.5rem',
+        fontSize: isMobile ? '2rem' : '2.5rem',
         fontWeight: '700',
-        marginBottom: '3rem',
+        marginBottom: isMobile ? '2rem' : '3rem',
         textAlign: 'center',
         color: '#1a1a1a',
         letterSpacing: '-0.02em'
@@ -37,15 +51,15 @@ export default function Projects() {
 
       <div style={{
         display: 'grid',
-        gap: '2.5rem',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))'
+        gap: isMobile ? '1.5rem' : '2.5rem',
+        gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(450px, 1fr))'
       }}>
         {projectList.map((project, idx) => (
           <div
             key={idx}
             style={{
               backgroundColor: '#ffffff',
-              padding: '2.5rem',
+              padding: isMobile ? '1.5rem' : '2.5rem',
               borderRadius: '16px',
               boxShadow: '0 8px 32px rgba(0, 0, 0, 0.08)',
               border: '1px solid #f1f5f9',
@@ -54,12 +68,16 @@ export default function Projects() {
               overflow: 'hidden'
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.transform = 'translateY(-4px)';
-              e.currentTarget.style.boxShadow = '0 16px 48px rgba(0, 0, 0, 0.12)';
+              if (!isMobile) {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 16px 48px rgba(0, 0, 0, 0.12)';
+              }
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.08)';
+              if (!isMobile) {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.08)';
+              }
             }}
           >
             <div style={{
@@ -75,10 +93,12 @@ export default function Projects() {
               display: 'flex',
               alignItems: 'center',
               gap: '1rem',
-              marginBottom: '1.5rem'
+              marginBottom: '1.5rem',
+              flexDirection: isMobile ? 'column' : 'row',
+              textAlign: isMobile ? 'center' : 'left'
             }}>
               <span style={{
-                fontSize: '2rem',
+                fontSize: isMobile ? '1.5rem' : '2rem',
                 padding: '0.5rem',
                 backgroundColor: '#f8fafc',
                 borderRadius: '12px'
@@ -87,7 +107,7 @@ export default function Projects() {
               </span>
               <h3 style={{ 
                 color: '#1a1a1a',
-                fontSize: '1.5rem',
+                fontSize: isMobile ? '1.3rem' : '1.5rem',
                 fontWeight: '600',
                 margin: 0
               }}>
@@ -97,14 +117,14 @@ export default function Projects() {
             
             <div style={{
               marginBottom: '1.5rem',
-              padding: '0.75rem 1rem',
+              padding: isMobile ? '0.5rem 0.75rem' : '0.75rem 1rem',
               backgroundColor: '#f1f5f9',
               borderRadius: '8px',
               borderLeft: '4px solid #3b82f6'
             }}>
               <p style={{ 
                 margin: 0,
-                fontSize: '0.95rem',
+                fontSize: isMobile ? '0.85rem' : '0.95rem',
                 fontWeight: '500',
                 color: '#374151'
               }}>
@@ -114,7 +134,7 @@ export default function Projects() {
             
             <p style={{ 
               marginBottom: '1.5rem',
-              fontSize: '1.1rem',
+              fontSize: isMobile ? '1rem' : '1.1rem',
               lineHeight: '1.6',
               color: '#4b5563'
             }}>
@@ -123,7 +143,7 @@ export default function Projects() {
             
             <p style={{
               margin: 0,
-              fontSize: '1.1rem',
+              fontSize: isMobile ? '1rem' : '1.1rem',
               lineHeight: '1.6',
               color: '#4b5563'
             }}>
