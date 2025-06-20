@@ -25,9 +25,23 @@ const transporter = nodemailer.createTransport({
 const contactRoute = require('./models/Contact');
 app.use('/api/contact', contactRoute);
 
+// Import the required modules
+
+
+// Define the /ping route
+
+
+// Start the server
+
+
+
 // Default route
 app.get('/', (req, res) => {
   res.send('🟢 Contact API Running (No DB)');
+});
+
+app.get('/ping', (req, res) => {
+  res.status(200).send('pong');
 });
 
 // Start server
